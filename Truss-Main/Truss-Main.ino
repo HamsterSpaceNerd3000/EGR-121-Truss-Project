@@ -6,6 +6,8 @@ const int sensorPin = A0;
 int sensorVal = 0;
 float Vin = 5;
 float Vout = 0;
+const int zeroPin = 5;
+int zeroState = 0;
 // Reference resistor measurement
 float Rref = 990;
 float R = 0;
@@ -21,12 +23,14 @@ void setup() {
   Serial.begin(9600);
   strip.begin();
   strip.show();
+  pinMode(zeroPin, INPUT);
 }
 
 void loop() {
   sensorVal = analogRead(sensorPin);
   Vout = (Vin*sensorVal)/1023;
   R - Rref * (1/ ((Vin - Vout) -1));
+  zeroState = digitalRead(zeroPin);
   Serial.println(R);
 
   // If / Then statement to handle LED display
@@ -51,4 +55,8 @@ void loop() {
     }
   }
   
+  // Zero handling
+  if (zeroState == HIGH) {
+    R = 0;
+  }
 }
