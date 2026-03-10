@@ -9,7 +9,7 @@ float Vout = 0;
 const int zeroPin = 5;
 int zeroState = 0;
 // Reference resistor measurement
-float Rref = 990;
+float Rref = 1;
 float R = 0;
 
 // LED pin setup
@@ -28,8 +28,8 @@ void setup() {
 
 void loop() {
   sensorVal = analogRead(sensorPin);
-  Vout = (Vin*sensorVal)/1023;
-  R - Rref * (1/ ((Vin - Vout) -1));
+  Vout = (Vin*sensorVal)/1023.0;
+  R = Rref * (1/ ((Vin - Vout) -1));
   zeroState = digitalRead(zeroPin);
   Serial.println(R);
 
