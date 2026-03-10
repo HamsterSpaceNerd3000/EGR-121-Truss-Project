@@ -23,7 +23,7 @@ void setup() {
   Serial.begin(9600);
   strip.begin();
   strip.show();
-  pinMode(zeroPin, INPUT);
+  pinMode(zeroPin, INPUT_PULLUP);
 }
 
 void loop() {
@@ -35,9 +35,9 @@ void loop() {
 
   // If / Then statement to handle LED display
   // Control
-  int controlMin = 320;
-  int controlMax = 340;
-  if (controlMin <= R <= controlMax) {
+  float controlMin = 0.45;
+  float controlMax = 0.55;
+  if (controlMin <= R & controlMax >= R) {
     for (int i = 0; i < pixelCount; i++) {
       strip.setPixelColor(i, strip.Color(0, 255, 0));
     }
@@ -59,4 +59,6 @@ void loop() {
   if (zeroState == HIGH) {
     R = 0;
   }
+
+  strip.show();
 }
